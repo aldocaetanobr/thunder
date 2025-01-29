@@ -1,0 +1,6 @@
+@ThunderTasks_HostAddress = http://localhost:5009
+
+GET {{ThunderTasks_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

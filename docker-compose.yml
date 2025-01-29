@@ -1,0 +1,30 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: thunder-tasks
+    ports:
+      - "5197:8080"
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=db;Database=thunderdb;User Id=sa;Password=a1B2C3d4e5!Passw0rd;TrustServerCertificate=True;
+    networks:
+      - app-network
+
+  db:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=a1B2C3d4e5!Passw0rd
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge    
